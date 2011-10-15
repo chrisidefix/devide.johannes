@@ -36,17 +36,11 @@ BUILD_DEVIDE_DISTRIBUTABLES = False
 import os
 import sys
 
-# currently, this is only being used by the devide InstallPackage to
-# modify the devide version to include the johannes version used to
-# build it, so it is important that you change this timestamp so that
-# config.py gets updated with a new revision keyword when you are
-# shipping a new devide.
-STAMP = "20110620-1635"
-JOHANNES_REV = "$Revision$"
-JOHANNES_REL = JOHANNES_REV.split()[1]
-
-# same repo, current johannes should be able to build current devide
-DEVIDE_REL = JOHANNES_REL
+# this is manually updated by the DeVIDE developers to indicate
+# which changeset of DeVIDE this johannes changeset is able to build
+# FIXME: change devide installpackage to find hg id of the johannes that
+# builds it.
+DEVIDE_CHANGESET_ID = "776121277873"
 
 BUILD_TARGET = 'RelWithDebInfo'
 
