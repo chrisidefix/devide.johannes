@@ -64,6 +64,7 @@ JOHANNES_REVISION_ID = "NOT SET"
 MAKE = ''
 SO_EXT = ''
 PYE_EXT = ''
+EXE_EXT = ''
 
 WINARCH = ''
 WINARCH_STR = ''
@@ -165,7 +166,7 @@ def init(wd, the_profile):
     # win32)
 
     global MAKE, DEVENV, CMAKE_DEFAULT_PARAMS, CMAKE_PRE_VARS
-    global SO_EXT, PYE_EXT
+    global SO_EXT, PYE_EXT, EXE_EXT
     # FIXME: change convention to x86, amd64, ia64 instead of 32bit and 64bit.
     # Go through all user code to fix.
     global WINARCH, WINARCH_STR
@@ -205,7 +206,7 @@ def init(wd, the_profile):
 
         SO_EXT = '.dll'
         PYE_EXT = '.pyd'
-
+        EXE_EXT = '.exe'
 
     # now setup some python stuff
     global PYTHON_EXECUTABLE
