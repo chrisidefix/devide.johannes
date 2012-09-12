@@ -19,8 +19,14 @@ URL = "http://prdownloads.sourceforge.net/teem/%s?download" % (ARCHIVE_NAME)
 
 dependencies = ['CMake']
 
+
+
 class Teem(InstallPackage):
     
+    lib_extensions = ""
+    lib_name = ""
+    lib_directory = ""
+
     def __init__(self):
         self.archive_path = os.path.join(
                 config.archive_dir, ARCHIVE_NAME)
@@ -30,6 +36,14 @@ class Teem(InstallPackage):
                                       (BASENAME,VERSION))
         self.inst_dir = os.path.join(config.inst_dir, BASENAME)
         config.Teem_DIR = os.path.join(self.inst_dir, 'lib', 'Teem-%s' % VERSION)
+	if os.name == "nt":
+	    self.lib_extensions = "dll"
+	    self.lib_name = "zlib"
+	    self.lib_directory = "bin"
+	if os.name == "posix":
+	    self.lib_extensions = "so"
+	    self.lib_name = "libz"
+	    self.lib_directory = "lib"
 
     def get(self):
         if os.path.exists(self.archive_path):
@@ -57,12 +71,13 @@ class Teem(InstallPackage):
             os.mkdir(self.build_dir)
 
         cmake_params = "-DCMAKE_BUILD_TYPE=RelWithDebInfo " \
-                       "-DCMAKE_INSTALL_PREFIX=%s " \
-                       "-DTeem_ZLIB=ON " \
-                       "-DZLIB_INCLUDE_DIR=%s/ " \
-                       "-DZLIB_LIBRARY=%s/zlib.lib " \
-                        % \
-                       (self.inst_dir,config.ZLIB_ROOT,config.ZLIB_ROOT,)
+	"-DCMAKE_INSTALL_PREFIX=%s " \
+	"-DTeem_ZLIB=ON " \
+	"-DBUILD_SHARED_LIBS=ON " \
+	"-DZLIB_INCLUDE_DIR=%s " \
+	"-DZLIB_LIBRARY=%s" \
+	% \
+	(self.inst_dir,os.path.join(config.ZLIB_INST_DIR,"include"),os.path.join(config.ZLIB_INST_DIR,self.lib_directory,self.lib_name+"."+self.lib_extensions),)
        
         ret = utils.cmake_command(self.build_dir, self.source_dir,
                 cmake_params)

@@ -28,7 +28,7 @@ dependencies = ['CMake']
 #    original
 MORPHSMOOTH_PATCH = "vispack_morphsmooth_only.diff"
 
-class VispackMorphsmooth(InstallPackage):    
+class VispackMorphSmooth(InstallPackage):    
     def __init__(self):
         self.archive_path = os.path.join(
                 config.archive_dir, ARCHIVE_NAME)

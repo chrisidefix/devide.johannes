@@ -71,11 +71,11 @@ class vtkTeem(InstallPackage):
             os.mkdir(self.build_dir)
 
         cmake_params = "-DCMAKE_BUILD_TYPE=RelWithDebInfo " \
-                       "-DCMAKE_INSTALL_PREFIX=%s " \
-                       "-DVTK_DIR=%s " \
-                       "-DTeem_DIR=%s " \
-                        % \
-                       (self.inst_dir,config.VTK_DIR,config.Teem_DIR)
+	"-DCMAKE_INSTALL_PREFIX=%s " \
+	"-DVTK_DIR=%s " \
+	"-DTeem_DIR=%s " \
+	% \
+	(self.inst_dir,config.VTK_DIR,config.Teem_DIR)
                        
         ret = utils.cmake_command(self.build_dir, self.source_dir,
                 cmake_params)
